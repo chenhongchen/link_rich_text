@@ -42,9 +42,9 @@ class LinkRichText extends StatelessWidget {
   TextStyle _defStyle;
   TextStyle _defSpecialStyle;
 
-  LinkRichText({
+  LinkRichText(
+    this.text, {
     this.key,
-    @required this.text,
     this.style,
     this.linkStyle,
     this.specialTexts,
