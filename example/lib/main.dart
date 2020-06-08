@@ -131,7 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.display1,
             ),
             LinkRichText(
-              '@一只鱼 http://www.baidu.com 打底裤积分 @老陈 快进快手动，肯德基疯狂的发，发拉拉速度快积分@哈哈卢萨卡的积分禄口街道和新浪：http://www.sina.com abc 你是谁 @不老实的鸟 ？是吗 @老邓',
+              text:
+                  '@一只鱼 http://www.baidu.com 打底裤积分 @老陈 快进快手动，肯德基疯狂的发，发拉拉速度快积分@哈哈卢萨卡的积分禄口街道和新浪：http://www.sina.com abc 你是谁 @不老实的鸟 ？是吗 @老邓',
               style: TextStyle(fontSize: 15, color: Colors.black),
               linkStyle: TextStyle(fontSize: 18, color: Colors.red),
               specialTexts: specialTexts,

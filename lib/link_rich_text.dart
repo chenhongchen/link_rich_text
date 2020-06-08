@@ -22,6 +22,19 @@ class LinkRichText extends StatelessWidget {
   List<SpecialText> specialTexts;
   final Function(String spText, String type) onTapSpecialText;
 
+  //
+  final Key key;
+  final TextAlign textAlign;
+  final TextDirection textDirection;
+  final bool softWrap;
+  final TextOverflow overflow;
+  final double textScaleFactor;
+  final int maxLines;
+  final Locale locale;
+  final StrutStyle strutStyle;
+  final TextWidthBasis textWidthBasis;
+  //
+
   final String _linkRegExpStr =
       "((?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-zA-Z0-9\\u00a1-\\uffff]+-?)*[a-zA-Z0-9\\u00a1-\\uffff]+)(?:\\.(?:[a-zA-Z0-9\\u00a1-\\uffff]+-?)*[a-zA-Z0-9\\u00a1-\\uffff]+)*(?:\\.(?:[a-zA-Z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:\\/(?:(?!\\1|\\s)[\\S\\s])*)?[^\\s'\\\"]*)";
 
@@ -29,8 +42,30 @@ class LinkRichText extends StatelessWidget {
   TextStyle _defStyle;
   TextStyle _defSpecialStyle;
 
-  LinkRichText(this.text,
-      {this.style, this.linkStyle, this.specialTexts, this.onTapSpecialText}) {
+  LinkRichText({
+    this.key,
+    @required this.text,
+    this.style,
+    this.linkStyle,
+    this.specialTexts,
+    this.onTapSpecialText,
+    this.textAlign = TextAlign.start,
+    this.textDirection,
+    this.softWrap = true,
+    this.overflow = TextOverflow.clip,
+    this.textScaleFactor = 1.0,
+    this.maxLines,
+    this.locale,
+    this.strutStyle,
+    this.textWidthBasis = TextWidthBasis.parent,
+  })  : assert(text != null),
+        assert(textAlign != null),
+        assert(softWrap != null),
+        assert(overflow != null),
+        assert(textScaleFactor != null),
+        assert(maxLines == null || maxLines > 0),
+        assert(textWidthBasis != null),
+        super(key: key) {
     _defStyle = TextStyle(fontSize: 17, color: Colors.black);
     _defSpecialStyle = TextStyle(fontSize: 17, color: Colors.blue);
     _initLinkSpecial();
@@ -123,11 +158,21 @@ class LinkRichText extends StatelessWidget {
     TextSpan firstTextSpan = textSpans.first;
     textSpans.remove(firstTextSpan);
     _richText = RichText(
+      key: key,
       text: TextSpan(
           text: firstTextSpan.text,
           style: firstTextSpan.style,
           recognizer: firstTextSpan.recognizer,
           children: textSpans),
+      textAlign: textAlign,
+      textDirection: textDirection,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
+      locale: locale,
+      strutStyle: strutStyle,
+      textWidthBasis: textWidthBasis,
     );
   }
 
