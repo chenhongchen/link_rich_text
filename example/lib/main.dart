@@ -48,20 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    RegExp exp = RegExp(
-        "((?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-zA-Z0-9\\u00a1-\\uffff]+-?)*[a-zA-Z0-9\\u00a1-\\uffff]+)(?:\\.(?:[a-zA-Z0-9\\u00a1-\\uffff]+-?)*[a-zA-Z0-9\\u00a1-\\uffff]+)*(?:\\.(?:[a-zA-Z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:\\/(?:(?!\\1|\\s)[\\S\\s])*)?[^\\s'\\\"]*)");
-    String str = "百度 http://www.baidu.com和新浪 http://www.sina.com abc";
-    Iterable<Match> matches = exp.allMatches(str);
-
-    for (Match m in matches) {
-      String match = m.group(0);
-      print('url = $match');
-    }
-
-    String text = 'a';
-    'a123a456a789a9871a';
-    List texts = text.split('a');
-
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -131,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.display1,
             ),
             LinkRichText(
-              '@一只鱼 https://www.baidu.com打底裤积分 @老陈 快进快手动，www.sohu.com肯德基疯狂的发，发拉拉速度快积分@哈哈卢萨卡的积分禄口街道和新浪：http://www.sina.com abc 你是谁 @不老实的鸟 ？是吗 @老邓',
+              '@一只鱼 https://www.baidu.comdfdfd打底裤积分 @老陈 快进快手动，www.sohu.com肯德基疯狂的发，发拉拉速度快积分@哈哈卢萨卡的积分禄口街道和新浪：http://www.sina.com abc 你是谁 @不老实的鸟 ？是吗 @老邓',
               style: TextStyle(fontSize: 15, color: Colors.black),
               linkStyle: TextStyle(fontSize: 18, color: Colors.red),
               specialTexts: specialTexts,
