@@ -158,15 +158,10 @@ class LinkRichText extends StatelessWidget {
       textSpans.add(norTxtSpan);
     }
 
-    TextSpan firstTextSpan = textSpans.first;
-    textSpans.remove(firstTextSpan);
+    TextSpan textSpan = TextSpan(text: '', children: textSpans);
     _richText = RichText(
       key: key,
-      text: TextSpan(
-          text: firstTextSpan.text,
-          style: firstTextSpan.style,
-          recognizer: firstTextSpan.recognizer,
-          children: textSpans),
+      text: textSpan,
       textAlign: textAlign,
       textDirection: textDirection,
       softWrap: softWrap,
