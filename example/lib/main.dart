@@ -66,20 +66,20 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    List<SpecialText> specialTexts = List<SpecialText>();
-    specialTexts.add(SpecialText(
+    List<SpecialStr> specialStrs = List<SpecialStr>();
+    specialStrs.add(SpecialStr(
         text: '@老陈',
         type: 'user',
         style: TextStyle(fontSize: 15, color: Colors.blue)));
-    specialTexts.add(SpecialText(
+    specialStrs.add(SpecialStr(
         text: '@老邓',
         type: 'user',
         style: TextStyle(fontSize: 15, color: Colors.blue)));
-    specialTexts.add(SpecialText(
+    specialStrs.add(SpecialStr(
         text: '@一只鱼',
         type: 'user',
         style: TextStyle(fontSize: 15, color: Colors.blue)));
-    specialTexts.add(SpecialText(
+    specialStrs.add(SpecialStr(
         text: '@不老实的鸟',
         type: 'user',
         style: TextStyle(fontSize: 15, color: Colors.blue)));
@@ -123,8 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
               text,
               style: TextStyle(fontSize: 15, color: Colors.black),
               linkStyle: TextStyle(fontSize: 18, color: Colors.red),
-              specialTexts: specialTexts,
-              onTapSpecialText: (String text, String type) {
+              specialStrs: specialStrs,
+              onTapSpecialStr: (String text, String type) {
                 print('type = $type, text = $text');
               },
             ),

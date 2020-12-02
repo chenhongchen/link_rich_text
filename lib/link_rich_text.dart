@@ -2,25 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class SpecialText {
+class SpecialStr {
   final String text;
   final TextStyle style;
   final String type;
-  SpecialText({this.text, this.style, this.type = 'link'});
+  SpecialStr({this.text, this.style, this.type = 'link'});
 }
 
-class SpecialTextRange {
+class _SpecialStrRange {
   final TextRange range;
-  final SpecialText specialText;
-  SpecialTextRange({this.range, this.specialText});
+  final SpecialStr specialStr;
+  _SpecialStrRange({this.range, this.specialStr});
 }
 
 class LinkRichText extends StatelessWidget {
   final String text;
   final TextStyle style;
   final TextStyle linkStyle;
-  List<SpecialText> specialTexts;
-  final Function(String spText, String type) onTapSpecialText;
+  List<SpecialStr> specialStrs;
+  final Function(String spStr, String type) onTapSpecialStr;
 
   //
   final Key key;
@@ -50,8 +50,8 @@ class LinkRichText extends StatelessWidget {
     this.key,
     this.style,
     this.linkStyle,
-    this.specialTexts,
-    this.onTapSpecialText,
+    this.specialStrs,
+    this.onTapSpecialStr,
     this.textAlign = TextAlign.start,
     this.textDirection,
     this.softWrap = true,
@@ -76,55 +76,55 @@ class LinkRichText extends StatelessWidget {
   }
 
   _initLinkSpecial() {
-    if (!(specialTexts is List)) {
-      specialTexts = List<SpecialText>();
+    if (!(specialStrs is List)) {
+      specialStrs = List<SpecialStr>();
     }
     RegExp linkExp = RegExp(_linkRegExpStr);
     Iterable<Match> matches = linkExp.allMatches(text);
     for (Match m in matches) {
       String match = m.group(0);
-      bool hasThisSpecialText = false;
-      for (SpecialText specialText in specialTexts) {
-        if (specialText.text == match) {
-          hasThisSpecialText = true;
+      bool hasThisSpecialStr = false;
+      for (SpecialStr specialStr in specialStrs) {
+        if (specialStr.text == match) {
+          hasThisSpecialStr = true;
           break;
         }
       }
-      if (hasThisSpecialText == true) {
+      if (hasThisSpecialStr == true) {
         continue;
       }
-      SpecialText specialText = SpecialText(text: match, style: linkStyle);
-      specialTexts.add(specialText);
+      SpecialStr specialStr = SpecialStr(text: match, style: linkStyle);
+      specialStrs.add(specialStr);
       print('url = $match');
     }
   }
 
   _initRichText() {
-    var specialTextRanges = List<SpecialTextRange>();
+    var specialStrRanges = List<_SpecialStrRange>();
     // 算出特殊字符的范围
-    for (SpecialText specialText in specialTexts) {
-      Iterable<Match> matches = specialText.text.allMatches(text);
+    for (SpecialStr specialStr in specialStrs) {
+      Iterable<Match> matches = specialStr.text.allMatches(text);
       for (Match m in matches) {
         String match = m.group(0);
         if ((match ?? '').length > 0) {
-          SpecialTextRange specialTextRange = SpecialTextRange(
+          _SpecialStrRange specialStrRange = _SpecialStrRange(
               range: TextRange(start: m.start, end: m.end),
-              specialText: specialText);
-          specialTextRanges.add(specialTextRange);
+              specialStr: specialStr);
+          specialStrRanges.add(specialStrRange);
         }
       }
     }
     // 按位置从小到大排序
-    specialTextRanges
+    specialStrRanges
         .sort((left, right) => left.range.start.compareTo(right.range.start));
 
     // 拼装富文本
     List<TextSpan> textSpans = List<TextSpan>();
     int start = 0;
     int end = 0;
-    for (SpecialTextRange specialTextRange in specialTextRanges) {
+    for (_SpecialStrRange specialStrRange in specialStrRanges) {
       start = end;
-      end = specialTextRange.range.start;
+      end = specialStrRange.range.start;
       String norText = text.substring(start, end);
       if (norText.length > 0) {
         TextSpan norTxtSpan = TextSpan(
@@ -134,18 +134,18 @@ class LinkRichText extends StatelessWidget {
         textSpans.add(norTxtSpan);
       }
       TextSpan speTxtSpan = TextSpan(
-        text: specialTextRange.specialText.text,
-        style: specialTextRange.specialText.style ?? _defSpecialStyle,
+        text: specialStrRange.specialStr.text,
+        style: specialStrRange.specialStr.style ?? _defSpecialStyle,
         recognizer: TapGestureRecognizer()
           ..onTap = () {
-            if (onTapSpecialText != null) {
-              onTapSpecialText(specialTextRange.specialText.text,
-                  specialTextRange.specialText.type);
+            if (onTapSpecialStr != null) {
+              onTapSpecialStr(specialStrRange.specialStr.text,
+                  specialStrRange.specialStr.type);
             }
           },
       );
       textSpans.add(speTxtSpan);
-      end = specialTextRange.range.end;
+      end = specialStrRange.range.end;
     }
     if (end < text.length) {
       start = end;
