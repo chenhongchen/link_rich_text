@@ -100,6 +100,7 @@ class LinkRichText extends StatelessWidget {
   }
 
   _initRichText() {
+    Map<int, _SpecialStrRange> temList = Map<int, _SpecialStrRange>();
     var specialStrRanges = List<_SpecialStrRange>();
     // 算出特殊字符的范围
     for (SpecialStr specialStr in specialStrs) {
@@ -107,10 +108,21 @@ class LinkRichText extends StatelessWidget {
       for (Match m in matches) {
         String match = m.group(0);
         if ((match ?? '').length > 0) {
+          // 去重
+          _SpecialStrRange temSpecialStrRange = temList[m.start];
+          if (temSpecialStrRange != null) {
+            if (temSpecialStrRange.specialStr.text.contains(specialStr.text)) {
+              continue;
+            } else {
+              specialStrRanges.remove(temSpecialStrRange);
+            }
+          }
+          //
           _SpecialStrRange specialStrRange = _SpecialStrRange(
               range: TextRange(start: m.start, end: m.end),
               specialStr: specialStr);
           specialStrRanges.add(specialStrRange);
+          temList[m.start] = specialStrRange;
         }
       }
     }
