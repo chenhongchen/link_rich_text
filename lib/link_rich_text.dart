@@ -6,7 +6,14 @@ class SpecialStr {
   final String text;
   final TextStyle style;
   final String type;
-  SpecialStr({this.text, this.style, this.type = 'link'});
+  SpecialStr({this.text, this.style, this.type});
+}
+
+class RegExpStr {
+  final String text;
+  final TextStyle style;
+  final String type;
+  RegExpStr({this.text, this.style, this.type});
 }
 
 class _SpecialStrRange {
@@ -20,6 +27,7 @@ class LinkRichText extends StatelessWidget {
   final TextStyle style;
   final TextStyle linkStyle;
   List<SpecialStr> specialStrs;
+  final List<RegExpStr> regExpStrs;
   final Function(String spStr, String type) onTapSpecialStr;
 
   //
@@ -51,6 +59,7 @@ class LinkRichText extends StatelessWidget {
     this.style,
     this.linkStyle,
     this.specialStrs,
+    this.regExpStrs,
     this.onTapSpecialStr,
     this.textAlign = TextAlign.start,
     this.textDirection,
@@ -72,14 +81,32 @@ class LinkRichText extends StatelessWidget {
     _defStyle = TextStyle(fontSize: 17, color: Colors.black);
     _defSpecialStyle = TextStyle(fontSize: 17, color: Colors.blue);
     _initLinkSpecial();
+    _initRegExpStrs();
     _initRichText();
   }
 
   _initLinkSpecial() {
+    _addSpecialStrByRegExpStr(_linkRegExpStr, type: 'link', style: linkStyle);
+  }
+
+  _initRegExpStrs() {
+    if (regExpStrs == null) {
+      return;
+    }
+    for (RegExpStr regExpStr in regExpStrs) {
+      if ((regExpStr.text ?? '').length <= 0) {
+        continue;
+      }
+      _addSpecialStrByRegExpStr(regExpStr.text,
+          type: regExpStr.type ?? '', style: regExpStr.style ?? linkStyle);
+    }
+  }
+
+  _addSpecialStrByRegExpStr(String regExpStr, {String type, TextStyle style}) {
     if (!(specialStrs is List)) {
       specialStrs = List<SpecialStr>();
     }
-    RegExp linkExp = RegExp(_linkRegExpStr);
+    RegExp linkExp = RegExp(regExpStr);
     Iterable<Match> matches = linkExp.allMatches(text);
     for (Match m in matches) {
       String match = m.group(0);
@@ -93,7 +120,7 @@ class LinkRichText extends StatelessWidget {
       if (hasThisSpecialStr == true) {
         continue;
       }
-      SpecialStr specialStr = SpecialStr(text: match, style: linkStyle);
+      SpecialStr specialStr = SpecialStr(text: match, type: type, style: style);
       specialStrs.add(specialStr);
       print('url = $match');
     }
@@ -137,7 +164,10 @@ class LinkRichText extends StatelessWidget {
     for (_SpecialStrRange specialStrRange in specialStrRanges) {
       start = end;
       end = specialStrRange.range.start;
-      String norText = text.substring(start, end);
+      String norText = '';
+      try {
+        norText = text.substring(start, end);
+      } catch (e) {}
       if (norText.length > 0) {
         TextSpan norTxtSpan = TextSpan(
           text: norText,
