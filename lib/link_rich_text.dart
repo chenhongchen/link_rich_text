@@ -3,43 +3,43 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SpecialStr {
-  final String text;
-  final TextStyle style;
-  final String type;
+  final String? text;
+  final TextStyle? style;
+  final String? type;
   SpecialStr({this.text, this.style, this.type});
 }
 
 class RegExpStr {
-  final String text;
-  final TextStyle style;
-  final String type;
+  final String? text;
+  final TextStyle? style;
+  final String? type;
   RegExpStr({this.text, this.style, this.type});
 }
 
 class _SpecialStrRange {
-  final TextRange range;
-  final SpecialStr specialStr;
+  final TextRange? range;
+  final SpecialStr? specialStr;
   _SpecialStrRange({this.range, this.specialStr});
 }
 
 class LinkRichText extends StatelessWidget {
   final String text;
-  final TextStyle style;
-  final TextStyle linkStyle;
-  List<SpecialStr> specialStrs;
-  final List<RegExpStr> regExpStrs;
-  final Function(String spStr, String type) onTapSpecialStr;
+  final TextStyle? style;
+  final TextStyle? linkStyle;
+  List<SpecialStr>? specialStrs;
+  final List<RegExpStr>? regExpStrs;
+  final Function(String spStr, String type)? onTapSpecialStr;
 
   //
-  final Key key;
+  final Key? key;
   final TextAlign textAlign;
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
   final bool softWrap;
   final TextOverflow overflow;
   final double textScaleFactor;
-  final int maxLines;
-  final Locale locale;
-  final StrutStyle strutStyle;
+  final int? maxLines;
+  final Locale? locale;
+  final StrutStyle? strutStyle;
   final TextWidthBasis textWidthBasis;
   //
 
@@ -48,10 +48,10 @@ class LinkRichText extends StatelessWidget {
 
   final String _linkRegExpStr =
       "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#\$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#\$%^&*+?:_/=<>]*)?)";
-  RichText _richText;
-  TextSpan get textSpan => _richText.text;
-  TextStyle _defStyle;
-  TextStyle _defSpecialStyle;
+  late RichText _richText;
+  InlineSpan get textSpan => _richText.text;
+  late TextStyle _defStyle;
+  late TextStyle _defSpecialStyle;
 
   LinkRichText(
     this.text, {
@@ -93,25 +93,26 @@ class LinkRichText extends StatelessWidget {
     if (regExpStrs == null) {
       return;
     }
-    for (RegExpStr regExpStr in regExpStrs) {
+    for (RegExpStr regExpStr in regExpStrs!) {
       if ((regExpStr.text ?? '').length <= 0) {
         continue;
       }
-      _addSpecialStrByRegExpStr(regExpStr.text,
+      _addSpecialStrByRegExpStr(regExpStr.text!,
           type: regExpStr.type ?? '', style: regExpStr.style ?? linkStyle);
     }
   }
 
-  _addSpecialStrByRegExpStr(String regExpStr, {String type, TextStyle style}) {
+  _addSpecialStrByRegExpStr(String regExpStr,
+      {String? type, TextStyle? style}) {
     if (!(specialStrs is List)) {
-      specialStrs = List<SpecialStr>();
+      specialStrs = <SpecialStr>[];
     }
     RegExp linkExp = RegExp(regExpStr);
     Iterable<Match> matches = linkExp.allMatches(text);
     for (Match m in matches) {
-      String match = m.group(0);
+      String? match = m.group(0);
       bool hasThisSpecialStr = false;
-      for (SpecialStr specialStr in specialStrs) {
+      for (SpecialStr specialStr in specialStrs!) {
         if (specialStr.text == match) {
           hasThisSpecialStr = true;
           break;
@@ -121,24 +122,31 @@ class LinkRichText extends StatelessWidget {
         continue;
       }
       SpecialStr specialStr = SpecialStr(text: match, type: type, style: style);
-      specialStrs.add(specialStr);
+      specialStrs!.add(specialStr);
       print('url = $match');
     }
   }
 
   _initRichText() {
+    if (!(specialStrs is List)) {
+      specialStrs = <SpecialStr>[];
+    }
     Map<int, _SpecialStrRange> temList = Map<int, _SpecialStrRange>();
-    var specialStrRanges = List<_SpecialStrRange>();
+    var specialStrRanges = <_SpecialStrRange>[];
     // 算出特殊字符的范围
-    for (SpecialStr specialStr in specialStrs) {
-      Iterable<Match> matches = specialStr.text.allMatches(text);
+    for (SpecialStr specialStr in specialStrs!) {
+      Iterable<Match>? matches = specialStr.text?.allMatches(text);
+      if (matches == null) {
+        continue;
+      }
       for (Match m in matches) {
-        String match = m.group(0);
+        String? match = m.group(0);
         if ((match ?? '').length > 0) {
           // 去重
-          _SpecialStrRange temSpecialStrRange = temList[m.start];
+          _SpecialStrRange? temSpecialStrRange = temList[m.start];
           if (temSpecialStrRange != null) {
-            if (temSpecialStrRange.specialStr.text.contains(specialStr.text)) {
+            if ((temSpecialStrRange.specialStr?.text ?? '')
+                .contains(specialStr.text ?? '')) {
               continue;
             } else {
               specialStrRanges.remove(temSpecialStrRange);
@@ -154,16 +162,16 @@ class LinkRichText extends StatelessWidget {
       }
     }
     // 按位置从小到大排序
-    specialStrRanges
-        .sort((left, right) => left.range.start.compareTo(right.range.start));
+    specialStrRanges.sort((left, right) =>
+        (left.range?.start ?? 0).compareTo(right.range?.start ?? 0));
 
     // 拼装富文本
-    List<TextSpan> textSpans = List<TextSpan>();
+    List<TextSpan> textSpans = <TextSpan>[];
     int start = 0;
     int end = 0;
     for (_SpecialStrRange specialStrRange in specialStrRanges) {
       start = end;
-      end = specialStrRange.range.start;
+      end = specialStrRange.range?.start ?? 0;
       String norText = '';
       try {
         norText = text.substring(start, end);
@@ -176,18 +184,22 @@ class LinkRichText extends StatelessWidget {
         textSpans.add(norTxtSpan);
       }
       TextSpan speTxtSpan = TextSpan(
-        text: specialStrRange.specialStr.text,
-        style: specialStrRange.specialStr.style ?? _defSpecialStyle,
+        text: specialStrRange.specialStr?.text ?? '',
+        style: specialStrRange.specialStr?.style ?? _defSpecialStyle,
         recognizer: TapGestureRecognizer()
           ..onTap = () {
             if (onTapSpecialStr != null) {
-              onTapSpecialStr(specialStrRange.specialStr.text,
-                  specialStrRange.specialStr.type);
+              if (specialStrRange.specialStr?.text == null ||
+                  specialStrRange.specialStr?.type == null) {
+                return;
+              }
+              onTapSpecialStr!(specialStrRange.specialStr!.text!,
+                  specialStrRange.specialStr!.type!);
             }
           },
       );
       textSpans.add(speTxtSpan);
-      end = specialStrRange.range.end;
+      end = specialStrRange.range?.end ?? 0;
     }
     if (end < text.length) {
       start = end;
