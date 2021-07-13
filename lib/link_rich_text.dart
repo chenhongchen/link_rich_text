@@ -31,7 +31,7 @@ class LinkRichText extends StatelessWidget {
     this.key,
     this.style,
     this.linkStyle,
-    this.specialStrs = const <SpecialStr>[],
+    this.specialStrs,
     this.regExpStrs,
     this.onTapSpecialStr,
     this.textAlign = TextAlign.start,

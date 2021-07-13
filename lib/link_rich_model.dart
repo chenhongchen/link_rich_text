@@ -9,7 +9,7 @@ class LinkRichModel {
   final String text;
   final TextStyle style;
   final TextStyle linkStyle;
-  final List<SpecialStr> specialStrs;
+  List<SpecialStr> specialStrs;
   final List<RegExpStr> regExpStrs;
   final TapSpecialStrCallback onTapSpecialStr;
 
@@ -27,7 +27,7 @@ class LinkRichModel {
     this.text, {
     this.style,
     this.linkStyle,
-    this.specialStrs = const <SpecialStr>[],
+    this.specialStrs,
     this.regExpStrs,
     this.onTapSpecialStr,
   }) : assert(text != null) {
@@ -54,6 +54,9 @@ class LinkRichModel {
   }
 
   _addSpecialStrByRegExpStr(String regExpStr, {String type, TextStyle style}) {
+    if (!(specialStrs is List)) {
+      specialStrs = List<SpecialStr>();
+    }
     RegExp linkExp = RegExp(regExpStr);
     Iterable<Match> matches = linkExp.allMatches(text);
     for (Match m in matches) {
