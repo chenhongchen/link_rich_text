@@ -1,3 +1,4 @@
+export 'package:link_rich_text/link_rich_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:link_rich_text/link_rich_model.dart';
