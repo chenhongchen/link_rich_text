@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:link_rich_text/link_rich_text.dart';
+import 'package:link_rich_text/link_rich_model.dart';
 
 void main() => runApp(MyApp());
 
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    List<SpecialStr> specialStrs = List<SpecialStr>();
+    List<SpecialStr> specialStrs = <SpecialStr>[];
     specialStrs.add(SpecialStr(
         text: '@老陈',
         type: 'user',
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         text: '@不老实的鸟',
         type: 'user',
         style: TextStyle(fontSize: 15, color: Colors.blue)));
-    List<RegExpStr> regExpStrs = List<RegExpStr>();
+    List<RegExpStr> regExpStrs = <RegExpStr>[];
     regExpStrs.add(RegExpStr(
         text: '#\\S*? ',
         type: '#',
@@ -138,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline4,
             ),
             LinkRichText(
               text,
