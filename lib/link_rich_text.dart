@@ -9,7 +9,7 @@ class LinkRichText extends StatelessWidget {
   final TextStyle linkStyle;
   final List<SpecialStr> specialStrs;
   final List<RegExpStr> regExpStrs;
-  final Function(String spStr, String type) onTapSpecialStr;
+  final TapSpecialStrCallback onTapSpecialStr;
 
   //
   final Key key;
@@ -83,6 +83,7 @@ class LinkRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _model.context = context;
     return RichText(
       key: key,
       text: textSpan,

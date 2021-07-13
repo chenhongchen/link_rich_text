@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+typedef TapSpecialStrCallback = void Function(
+    BuildContext ctx, String spStr, String type);
+
 class LinkRichModel {
   final String text;
   final TextStyle style;
   final TextStyle linkStyle;
   final List<SpecialStr> specialStrs;
   final List<RegExpStr> regExpStrs;
-  final Function(String spStr, String type) onTapSpecialStr;
+  final TapSpecialStrCallback onTapSpecialStr;
 
   final String _linkRegExpStr =
       "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#\$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#\$%^&*+?:_/=<>]*)?)";
@@ -18,6 +21,7 @@ class LinkRichModel {
       const TextStyle(fontSize: 17, color: Colors.blue);
   TextSpan get textSpan => _textSpan;
   TextSpan _textSpan;
+  BuildContext context;
 
   LinkRichModel(
     this.text, {
@@ -124,7 +128,7 @@ class LinkRichModel {
         recognizer: TapGestureRecognizer()
           ..onTap = () {
             if (onTapSpecialStr != null) {
-              onTapSpecialStr(specialStrRange.specialStr.text,
+              onTapSpecialStr(context, specialStrRange.specialStr.text,
                   specialStrRange.specialStr.type);
             }
           },
