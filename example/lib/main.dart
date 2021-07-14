@@ -147,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
               linkStyle: TextStyle(fontSize: 18, color: Colors.red),
               specialStrs: specialStrs,
               regExpStrs: regExpStrs,
-              onTapSpecialStr: (BuildContext ctx, String text, String type) {
+              onTapSpecialStr: (String text, String type) {
                 print('type = $type, text = $text');
               },
             ),

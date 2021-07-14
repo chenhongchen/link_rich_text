@@ -83,7 +83,6 @@ class LinkRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _model.context = context;
     return RichText(
       key: key,
       text: textSpan,

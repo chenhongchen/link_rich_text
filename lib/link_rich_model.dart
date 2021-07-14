@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-typedef TapSpecialStrCallback = void Function(
-    BuildContext ctx, String spStr, String type);
+typedef TapSpecialStrCallback = void Function(String spStr, String type);
 
 class LinkRichModel {
   final String text;
@@ -21,7 +20,6 @@ class LinkRichModel {
       const TextStyle(fontSize: 17, color: Colors.blue);
   TextSpan get textSpan => _textSpan;
   TextSpan _textSpan;
-  BuildContext context;
 
   LinkRichModel(
     this.text, {
@@ -131,7 +129,7 @@ class LinkRichModel {
         recognizer: TapGestureRecognizer()
           ..onTap = () {
             if (onTapSpecialStr != null) {
-              onTapSpecialStr(context, specialStrRange.specialStr.text,
+              onTapSpecialStr(specialStrRange.specialStr.text,
                   specialStrRange.specialStr.type);
             }
           },
