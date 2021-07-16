@@ -29,6 +29,9 @@ class LinkRichModel {
     this.regExpStrs,
     this.onTapSpecialStr,
   }) : assert(text != null) {
+    if (!(specialStrs is List)) {
+      specialStrs = <SpecialStr>[];
+    }
     _initLinkSpecial();
     _initRegExpStrs();
     _initTextSpan();
@@ -52,9 +55,6 @@ class LinkRichModel {
   }
 
   _addSpecialStrByRegExpStr(String regExpStr, {String type, TextStyle style}) {
-    if (!(specialStrs is List)) {
-      specialStrs = List<SpecialStr>();
-    }
     RegExp linkExp = RegExp(regExpStr);
     Iterable<Match> matches = linkExp.allMatches(text);
     for (Match m in matches) {
@@ -76,7 +76,7 @@ class LinkRichModel {
 
   _initTextSpan() {
     Map<int, _SpecialStrRange> temList = Map<int, _SpecialStrRange>();
-    var specialStrRanges = List<_SpecialStrRange>();
+    var specialStrRanges = <_SpecialStrRange>[];
     // 算出特殊字符的范围
     for (SpecialStr specialStr in specialStrs) {
       Iterable<Match> matches = specialStr.text.allMatches(text);
@@ -106,7 +106,7 @@ class LinkRichModel {
         .sort((left, right) => left.range.start.compareTo(right.range.start));
 
     // 拼装富文本
-    List<TextSpan> textSpans = List<TextSpan>();
+    List<TextSpan> textSpans = <TextSpan>[];
     int start = 0;
     int end = 0;
     for (_SpecialStrRange specialStrRange in specialStrRanges) {
