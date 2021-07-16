@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:link_rich_text/link_rich_text.dart';
+import 'package:link_rich_text/link_rich_model.dart';
 
 void main() => runApp(MyApp());
 
