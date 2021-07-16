@@ -34,7 +34,7 @@ class LinkRichModel {
     }
     _initLinkSpecial();
     _initRegExpStrs();
-    _initTextSpan();
+    _textSpan = _initTextSpan();
   }
 
   _initLinkSpecial() {
@@ -74,7 +74,7 @@ class LinkRichModel {
     }
   }
 
-  _initTextSpan() {
+  TextSpan _initTextSpan() {
     Map<int, _SpecialStrRange> temList = Map<int, _SpecialStrRange>();
     var specialStrRanges = <_SpecialStrRange>[];
     // 算出特殊字符的范围
@@ -148,7 +148,7 @@ class LinkRichModel {
       textSpans.add(norTxtSpan);
     }
 
-    _textSpan = TextSpan(text: '', children: textSpans);
+    return TextSpan(text: '', children: textSpans);
   }
 }
 
