@@ -4,7 +4,7 @@ Flutter plugin for hyperlinks and custom special characters rich text display.
 
 ## Demo
 
-![Demo](https://github.com/chenhongchen/link_rich_text/raw/master/assets/demo.jpeg)
+![Demo](https://github.com/chenhongchen/link_rich_text/blob/f1.17_1/assets/demo.jpeg)
 
 ## Installation
 
