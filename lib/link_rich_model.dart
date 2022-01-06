@@ -20,6 +20,8 @@ class LinkRichModel {
       const TextStyle(fontSize: 17, color: Colors.blue);
   TextSpan get textSpan => _textSpan;
   late TextSpan _textSpan;
+  bool get hasSpecialStr => _hasSpecialStr ?? false;
+  bool? _hasSpecialStr;
 
   LinkRichModel(
     this.text, {
@@ -112,6 +114,7 @@ class LinkRichModel {
     // 按位置从小到大排序
     specialStrRanges
         .sort((left, right) => left.range.start.compareTo(right.range.start));
+    _hasSpecialStr = specialStrRanges.length > 0;
 
     // 拼装富文本
     List<TextSpan> textSpans = <TextSpan>[];
