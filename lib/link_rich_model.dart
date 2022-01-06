@@ -77,29 +77,35 @@ class LinkRichModel {
   }
 
   TextSpan _initTextSpan() {
-    Map<int, _SpecialStrRange> temList = Map<int, _SpecialStrRange>();
     var specialStrRanges = <_SpecialStrRange>[];
     // 算出特殊字符的范围
     for (SpecialStr specialStr in specialStrs!) {
       Iterable<Match> matches = specialStr.text.allMatches(text);
+      var temSpecialStrRanges = List.from(specialStrRanges);
       for (Match m in matches) {
         String? match = m.group(0);
         if ((match ?? '').length > 0) {
-          // 去重
-          _SpecialStrRange? temSpecialStrRange = temList[m.start];
-          if (temSpecialStrRange != null) {
-            if (temSpecialStrRange.specialStr.text.contains(specialStr.text)) {
-              continue;
-            } else {
-              specialStrRanges.remove(temSpecialStrRange);
+          // 范围去重（交叉：结束位置靠后者优先，包含：范围大者优先，相同：后者优先）
+          bool isDiscard = false;
+          for (_SpecialStrRange specialStrRange in temSpecialStrRanges) {
+            if ((specialStrRange.range.start < m.end &&
+                    specialStrRange.range.end > m.end) ||
+                (specialStrRange.range.start < m.start &&
+                    specialStrRange.range.end == m.end)) {
+              isDiscard = true;
+              break;
+            }
+            if (m.start < specialStrRange.range.end &&
+                m.end >= specialStrRange.range.end) {
+              specialStrRanges.remove(specialStrRange);
             }
           }
+          if (isDiscard) continue;
           //
           _SpecialStrRange specialStrRange = _SpecialStrRange(
               range: TextRange(start: m.start, end: m.end),
               specialStr: specialStr);
           specialStrRanges.add(specialStrRange);
-          temList[m.start] = specialStrRange;
         }
       }
     }

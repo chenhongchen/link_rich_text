@@ -68,29 +68,25 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     List<SpecialStr> specialStrs = <SpecialStr>[];
     specialStrs.add(SpecialStr(
+        text: '老@老陈啊',
+        type: 'user',
+        style: TextStyle(fontSize: 15, color: Colors.purple)));
+    specialStrs.add(SpecialStr(
         text: '@老陈',
         type: 'user',
         style: TextStyle(fontSize: 15, color: Colors.blue)));
     specialStrs.add(SpecialStr(
         text: '@老陈',
         type: 'user',
-        style: TextStyle(fontSize: 15, color: Colors.blue)));
+        style: TextStyle(fontSize: 15, color: Colors.orangeAccent)));
     specialStrs.add(SpecialStr(
         text: '@老陈啊',
         type: 'user',
-        style: TextStyle(fontSize: 15, color: Colors.blue)));
+        style: TextStyle(fontSize: 15, color: Colors.yellow)));
     specialStrs.add(SpecialStr(
         text: '@老陈啊啊',
         type: 'user',
-        style: TextStyle(fontSize: 15, color: Colors.blue)));
-    specialStrs.add(SpecialStr(
-        text: '@老邓',
-        type: 'user',
-        style: TextStyle(fontSize: 15, color: Colors.blue)));
-    specialStrs.add(SpecialStr(
-        text: '@老邓',
-        type: 'user',
-        style: TextStyle(fontSize: 15, color: Colors.blue)));
+        style: TextStyle(fontSize: 15, color: Colors.teal)));
     specialStrs.add(SpecialStr(
         text: '@一只鱼',
         type: 'user',
@@ -105,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         type: '#',
         style: TextStyle(fontSize: 15, color: Colors.lightBlueAccent)));
     String text =
-        '@一只鱼 https://www.baidu.comdfdfd打底可反#馈的 了@老陈啊都放到裤积分 @老陈 快进快手动，www.sohu.com肯德的框架反馈的减@老陈啊啊肥看的积分基疯狂的发，发拉拉速度快积分@哈哈卢萨卡的积分禄口街道和新浪：http://www.sina.com abc 你是谁 @不老实的鸟 ？是吗 @老邓';
+        '@一只鱼 https://www.baidu.com 控件打底可反#馈的 了老@老陈啊都放到裤积分 @老陈 快进快手动，肯德的框架反馈的减@老陈啊啊肥看的积分基疯狂的发，发拉拉速度快积分@哈哈卢萨卡的积分禄口街道和你是谁 @不老实的鸟 ？是吗@老陈';
 //    text = '';
     return Scaffold(
       appBar: AppBar(
