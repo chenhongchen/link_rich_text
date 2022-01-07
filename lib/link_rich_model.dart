@@ -22,6 +22,7 @@ class LinkRichModel {
   late TextSpan _textSpan;
   bool get hasSpecialStr => _hasSpecialStr ?? false;
   bool? _hasSpecialStr;
+  TextStyle get norStyle => style ?? _defStyle;
 
   LinkRichModel(
     this.text, {
@@ -130,7 +131,7 @@ class LinkRichModel {
       if (norText.length > 0) {
         TextSpan norTxtSpan = TextSpan(
           text: norText,
-          style: style ?? _defStyle,
+          style: norStyle,
         );
         textSpans.add(norTxtSpan);
       }
@@ -154,7 +155,7 @@ class LinkRichModel {
       String norText = text.substring(start, end);
       TextSpan norTxtSpan = TextSpan(
         text: norText,
-        style: style ?? _defStyle,
+        style: norStyle,
       );
       textSpans.add(norTxtSpan);
     }

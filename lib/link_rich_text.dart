@@ -95,6 +95,7 @@ class LinkRichText extends StatelessWidget {
         : Text(
             text,
             key: key,
+            style: style,
             textAlign: textAlign,
             textDirection: textDirection,
             softWrap: softWrap,
