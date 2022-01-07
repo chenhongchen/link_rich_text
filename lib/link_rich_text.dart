@@ -66,7 +66,8 @@ class LinkRichText extends StatelessWidget {
     this.locale,
     this.strutStyle,
     this.textWidthBasis = TextWidthBasis.parent,
-  })  : text = model.text,
+  })  : assert(maxLines == null || maxLines > 0),
+        text = model.text,
         style = model.style,
         linkStyle = model.linkStyle,
         specialStrs = model.specialStrs,
@@ -77,18 +78,32 @@ class LinkRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      key: key,
-      text: textSpan,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      locale: locale,
-      strutStyle: strutStyle,
-      textWidthBasis: textWidthBasis,
-    );
+    return _model.hasSpecialStr
+        ? RichText(
+            key: key,
+            text: textSpan,
+            textAlign: textAlign,
+            textDirection: textDirection,
+            softWrap: softWrap,
+            overflow: overflow,
+            textScaleFactor: textScaleFactor,
+            maxLines: maxLines,
+            locale: locale,
+            strutStyle: strutStyle,
+            textWidthBasis: textWidthBasis,
+          )
+        : Text(
+            text,
+            key: key,
+            textAlign: textAlign,
+            textDirection: textDirection,
+            softWrap: softWrap,
+            overflow: overflow,
+            textScaleFactor: textScaleFactor,
+            maxLines: maxLines,
+            locale: locale,
+            strutStyle: strutStyle,
+            textWidthBasis: textWidthBasis,
+          );
   }
 }
