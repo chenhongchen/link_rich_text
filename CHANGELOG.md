@@ -1,3 +1,7 @@
+## 2.0.2
+
+* Perfect code
+
 ## 2.0.1
 
 * Optimize code
