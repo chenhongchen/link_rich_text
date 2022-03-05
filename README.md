@@ -26,7 +26,7 @@ import 'package:link_rich_text/link_rich_text.dart';
 
 ### Through LinkRichModel
 
-Creation model
+Create model
 
 ```dart
 _setLinkRichModel() async {
@@ -80,7 +80,7 @@ _setLinkRichModel() async {
 }
 ```
 
-Rich text display through the model
+Display rich text through the model
 
 ```dart
 LinkRichText.fromModel(_linkRichModel!),
@@ -94,6 +94,7 @@ RichText(text: _linkRichModel!.textSpan),
 
 ### Through LinkRichText directly
 
+```dart
 LinkRichText(
   text,
   style: TextStyle(fontSize: 15, color: Colors.black),
@@ -107,3 +108,4 @@ LinkRichText(
     }
   },
 )
+```
