@@ -1,3 +1,8 @@
+## 2.1.0
+
+* Upgrade Android compile SDK version
+* Perfect example
+
 ## 2.0.2
 
 * Perfect code

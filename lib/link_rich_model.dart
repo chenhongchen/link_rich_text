@@ -1,16 +1,38 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 typedef TapSpecialStrCallback = void Function(String spStr, String type);
 
+/// 富文本模型
 class LinkRichModel {
+  /// 要显示的文本
   final String text;
+
+  /// 要显示文本的样式
   final TextStyle? style;
+
+  /// 链接的样式
   final TextStyle? linkStyle;
+
+  /// 特殊字符串模型
   List<SpecialStr>? specialStrs;
+
+  /// 正则特殊字符串模型
   final List<RegExpStr>? regExpStrs;
+
+  /// 点击特殊字符串回调
   final TapSpecialStrCallback? onTapSpecialStr;
+
+  /// 生成的TextSpan
+  TextSpan get textSpan => _textSpan;
+  late TextSpan _textSpan;
+
+  /// 文案中是否有特殊字符串
+  bool get hasSpecialStr => _hasSpecialStr ?? false;
+  bool? _hasSpecialStr;
+
+  /// 文案样式
+  TextStyle get norStyle => style ?? _defStyle;
 
   final String _linkRegExpStr =
       "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#\$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#\$%^&*+?:_/=<>]*)?)";
@@ -18,11 +40,6 @@ class LinkRichModel {
       const TextStyle(fontSize: 17, color: Colors.black);
   final TextStyle _defSpecialStyle =
       const TextStyle(fontSize: 17, color: Colors.blue);
-  TextSpan get textSpan => _textSpan;
-  late TextSpan _textSpan;
-  bool get hasSpecialStr => _hasSpecialStr ?? false;
-  bool? _hasSpecialStr;
-  TextStyle get norStyle => style ?? _defStyle;
 
   LinkRichModel(
     this.text, {
@@ -164,22 +181,37 @@ class LinkRichModel {
   }
 }
 
+/// 特殊字符串模型
 class SpecialStr {
+  /// 字符串
   final String text;
+
+  /// 样式
   final TextStyle? style;
+
+  /// 类型
   final String? type;
+
   SpecialStr({required this.text, this.style, this.type});
 }
 
+/// 正则特殊字符串模型
 class RegExpStr {
+  /// 字符串
   final String text;
+
+  /// 样式
   final TextStyle? style;
+
+  /// 类型
   final String? type;
+
   RegExpStr({required this.text, this.style, this.type});
 }
 
 class _SpecialStrRange {
   final TextRange range;
   final SpecialStr specialStr;
+
   _SpecialStrRange({required this.range, required this.specialStr});
 }
