@@ -1,6 +1,6 @@
 # link_rich_text
 
-[![pub package](https://img.shields.io/pub/v/photo_browser.svg)](https://pub.dartlang.org/packages/link_rich_text)
+[![pub package](https://img.shields.io/pub/v/link_rich_text.svg)](https://pub.dartlang.org/packages/link_rich_text)
 [![GitHub stars](https://img.shields.io/github/stars/chenhongchen/link_rich_text.svg?style=social&label=Stars)](https://github.com/chenhongchen/link_rich_text)
 
 Flutter plugin for hyperlinks and custom special characters rich text display.
