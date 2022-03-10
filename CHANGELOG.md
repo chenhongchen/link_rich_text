@@ -1,3 +1,7 @@
+## 2.1.1
+
+* Modify document
+
 ## 2.1.0
 
 * Upgrade Android compile SDK version
