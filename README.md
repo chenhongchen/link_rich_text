@@ -15,7 +15,7 @@ In your `pubspec.yaml` file within your Flutter Project:
 
 ```yaml
 dependencies:
-  link_rich_text: 2.1.1
+  link_rich_text: 2.1.2
 ```
 
 ## Use it

@@ -1,3 +1,7 @@
+## 2.1.2
+
+* Migrate this app to the V2 embedding
+
 ## 2.1.1
 
 * Modify document
@@ -21,4 +25,4 @@
 
 ## 1.0.0
 
-* TODO: Describe initial release.
+* Describe initial release.
