@@ -21,9 +21,6 @@ class LinkRichText extends StatelessWidget {
   /// 点击特殊字符串回调
   final TapSpecialStrCallback? onTapSpecialStr;
 
-  //
-  final Key? key;
-
   /// How the text should be aligned horizontally.
   final TextAlign textAlign;
 
@@ -59,7 +56,7 @@ class LinkRichText extends StatelessWidget {
 
   LinkRichText(
     this.text, {
-    this.key,
+    Key? key,
     this.style,
     this.linkStyle,
     this.specialStrs,
@@ -87,7 +84,7 @@ class LinkRichText extends StatelessWidget {
 
   LinkRichText.fromModel(
     LinkRichModel model, {
-    this.key,
+    Key? key,
     this.textAlign = TextAlign.start,
     this.textDirection,
     this.softWrap = true,

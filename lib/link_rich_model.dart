@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,7 @@ class LinkRichModel {
     this.regExpStrs,
     this.onTapSpecialStr,
   }) {
-    if (!(specialStrs is List)) {
+    if (specialStrs is! List) {
       specialStrs = <SpecialStr>[];
     }
     _initLinkSpecial();
@@ -66,7 +67,7 @@ class LinkRichModel {
       return;
     }
     for (RegExpStr regExpStr in regExpStrs!) {
-      if (regExpStr.text.length <= 0) {
+      if (regExpStr.text.isEmpty) {
         continue;
       }
       _addSpecialStrByRegExpStr(regExpStr.text,
@@ -104,7 +105,7 @@ class LinkRichModel {
       var temSpecialStrRanges = List.from(specialStrRanges);
       for (Match m in matches) {
         String? match = m.group(0);
-        if ((match ?? '').length > 0) {
+        if ((match ?? '').isNotEmpty) {
           // 范围去重（交叉：结束位置靠后者优先，包含：范围大者优先，相同：后者优先）
           bool isDiscard = false;
           for (_SpecialStrRange specialStrRange in temSpecialStrRanges) {
@@ -132,7 +133,7 @@ class LinkRichModel {
     // 按位置从小到大排序
     specialStrRanges
         .sort((left, right) => left.range.start.compareTo(right.range.start));
-    _hasSpecialStr = specialStrRanges.length > 0;
+    _hasSpecialStr = specialStrRanges.isNotEmpty;
 
     // 拼装富文本
     List<TextSpan> textSpans = <TextSpan>[];
@@ -144,8 +145,12 @@ class LinkRichModel {
       String norText = '';
       try {
         norText = text.substring(start, end);
-      } catch (e) {}
-      if (norText.length > 0) {
+      } catch (e) {
+        if (kDebugMode) {
+          print('$e');
+        }
+      }
+      if (norText.isNotEmpty) {
         TextSpan norTxtSpan = TextSpan(
           text: norText,
           style: norStyle,
