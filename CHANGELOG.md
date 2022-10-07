@@ -1,3 +1,7 @@
+## 3.0.0
+
+* Add support for macOS and web.
+
 ## 2.1.2
 
 * Migrate this app to the V2 embedding

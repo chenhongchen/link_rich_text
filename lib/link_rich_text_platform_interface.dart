@@ -14,7 +14,7 @@ abstract class LinkRichTextPlatform extends PlatformInterface {
   ///
   /// Defaults to [MethodChannelLinkRichText].
   static LinkRichTextPlatform get instance => _instance;
-  
+
   /// Platform-specific implementations should set this with their own
   /// platform-specific class that extends [LinkRichTextPlatform] when
   /// they register themselves.

@@ -15,7 +15,7 @@ In your `pubspec.yaml` file within your Flutter Project:
 
 ```yaml
 dependencies:
-  link_rich_text: 2.1.2
+  link_rich_text: 3.0.0
 ```
 
 ## Use it
@@ -39,26 +39,26 @@ _setLinkRichModel() async {
   specialStrs.add(SpecialStr(
       text: '@我啊',
       type: 'user',
-      style: TextStyle(fontSize: 15, color: Colors.blue)));
+      style: const TextStyle(fontSize: 15, color: Colors.blue)));
   specialStrs.add(SpecialStr(
       text: '@我啊啊',
       type: 'user',
-      style: TextStyle(fontSize: 18, color: Colors.purple)));
+      style: const TextStyle(fontSize: 18, color: Colors.purple)));
   specialStrs.add(SpecialStr(
       text: '@一只鱼',
       type: 'user',
-      style: TextStyle(fontSize: 15, color: Colors.orange)));
+      style: const TextStyle(fontSize: 15, color: Colors.orange)));
   specialStrs.add(SpecialStr(
       text: '@不老实的鸟',
       type: 'user',
-      style: TextStyle(fontSize: 15, color: Colors.brown)));
+      style: const TextStyle(fontSize: 15, color: Colors.brown)));
 
   // 添加正则特殊字符串
   List<RegExpStr> regExpStrs = <RegExpStr>[];
   regExpStrs.add(RegExpStr(
       text: '#\\S*? ',
       type: '#',
-      style: TextStyle(fontSize: 18, color: Colors.lightBlueAccent)));
+      style: const TextStyle(fontSize: 18, color: Colors.lightBlueAccent)));
 
   String text = '@一只鱼 控件打底可反#馈的 了老@我啊都放到裤积分 '
       '快进快手动，肯德的框架反馈的减@我啊啊肥看的积分基疯狂的发，'
@@ -67,12 +67,14 @@ _setLinkRichModel() async {
   // 创建并缓存富文本模型
   _linkRichModel = LinkRichModel(
     text,
-    style: TextStyle(fontSize: 15, color: Colors.black),
-    linkStyle: TextStyle(fontSize: 18, color: Colors.red),
+    style: const TextStyle(fontSize: 15, color: Colors.black),
+    linkStyle: const TextStyle(fontSize: 18, color: Colors.red),
     specialStrs: specialStrs,
     regExpStrs: regExpStrs,
     onTapSpecialStr: (String text, String type) {
-      print('type = $type, text = $text');
+      if (kDebugMode) {
+        print('type = $type, text = $text');
+      }
     },
   );
 
@@ -97,14 +99,16 @@ RichText(text: _linkRichModel!.textSpan),
 ```dart
 LinkRichText(
   text,
-  style: TextStyle(fontSize: 15, color: Colors.black),
-  linkStyle: TextStyle(fontSize: 15, color: Colors.blue),
+  style: const TextStyle(fontSize: 15, color: Colors.black),
+  linkStyle: const TextStyle(fontSize: 15, color: Colors.blue),
   specialStrs: specialStrs,
   regExpStrs: regExpStrs,
   onTapSpecialStr: (String text, String type) {
-    print('type = $type, text = $text');
+    if (kDebugMode) {
+      print('type = $type, text = $text');
+    }
     if (type == 'link') {
-      launch(text);
+      launchUrlString(text);
     }
   },
 )
