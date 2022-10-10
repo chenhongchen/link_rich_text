@@ -1,3 +1,7 @@
+## 3.0.1
+
+* Fix macOS example.
+
 ## 3.0.0
 
 * Add support for macOS and web.
