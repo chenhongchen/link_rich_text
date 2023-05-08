@@ -22,7 +22,7 @@ class LinkRichModel {
   final List<RegExpStr>? regExpStrs;
 
   /// 点击特殊字符串回调
-  final TapSpecialStrCallback? onTapSpecialStr;
+  TapSpecialStrCallback? onTapSpecialStr;
 
   /// 生成的TextSpan
   TextSpan get textSpan => _textSpan;

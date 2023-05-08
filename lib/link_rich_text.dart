@@ -85,6 +85,7 @@ class LinkRichText extends StatelessWidget {
   LinkRichText.fromModel(
     LinkRichModel model, {
     Key? key,
+    this.onTapSpecialStr,
     this.textAlign = TextAlign.start,
     this.textDirection,
     this.softWrap = true,
@@ -100,9 +101,12 @@ class LinkRichText extends StatelessWidget {
         linkStyle = model.linkStyle,
         specialStrs = model.specialStrs,
         regExpStrs = model.regExpStrs,
-        onTapSpecialStr = model.onTapSpecialStr,
         _model = model,
-        super(key: key);
+        super(key: key) {
+    if (onTapSpecialStr != null) {
+      _model.onTapSpecialStr = onTapSpecialStr;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

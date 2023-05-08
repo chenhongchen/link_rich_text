@@ -1,6 +1,6 @@
 name: link_rich_text
 description: Flutter plugin for hyperlinks and custom special characters rich text display.
-version: 3.0.1
+version: 3.0.2
 homepage: https://github.com/chenhongchen/link_rich_text
 
 environment:

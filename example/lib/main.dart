@@ -83,9 +83,9 @@ class MyHomePageState extends State<MyHomePage> {
       linkStyle: const TextStyle(fontSize: 18, color: Colors.red),
       specialStrs: specialStrs,
       regExpStrs: regExpStrs,
-      onTapSpecialStr: (String text, String type) {
+      onTapSpecialStr: (String spStr, String type) {
         if (kDebugMode) {
-          print('type = $type, text = $text');
+          print('LinkRichModel onTapSpecialStr type = $type, text = $spStr');
         }
       },
     );
@@ -106,7 +106,15 @@ class MyHomePageState extends State<MyHomePage> {
                 children: [
                   _buildLinkRichText(),
                   _buildSpan(),
-                  LinkRichText.fromModel(_linkRichModel!),
+                  LinkRichText.fromModel(
+                    _linkRichModel!,
+                    onTapSpecialStr: (String spStr, String type) {
+                      if (kDebugMode) {
+                        print(
+                            'LinkRichText onTapSpecialStr type = $type, text = $spStr');
+                      }
+                    },
+                  ),
                   _buildSpan(),
                   RichText(text: _linkRichModel!.textSpan),
                 ],

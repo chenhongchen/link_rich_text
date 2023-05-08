@@ -1,3 +1,7 @@
+## 3.0.2
+
+* Optimize code
+
 ## 3.0.1
 
 * Fix macOS example.
